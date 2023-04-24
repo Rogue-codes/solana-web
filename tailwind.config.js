@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: 'class',
+  darkMode: "class",
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx}",
     "./src/components/**/*.{js,ts,jsx,tsx}",
@@ -9,13 +9,13 @@ module.exports = {
   ],
   theme: {
     fontFamily: {
-      sans: ['Helvetica', 'Arial', 'sans-serif'],
+      sans: ["Helvetica", "Arial", "sans-serif"],
     },
     extend: {
       colors: {
         green: {
           8: "#19FB9B",
-        }
+        },
       },
       boxShadow: {
         shadow:
@@ -33,26 +33,31 @@ module.exports = {
         "5xl": "3rem",
         "6xl": "3.5rem",
         "7xl": "70px",
-        "8xl":"94px",
-        "9xl":"6rem"
+        "8xl": "94px",
+        "9xl": "6rem",
       },
       backgroundImage: {
         hero: "url('/assets/hero.svg')",
       },
       animation: {
-        slideUp: 'slideUp .5s ease-in-out ',
-        fade: 'fade 1.5s ease ',
+        gradient: 'gradient 10s ease infinite'
       },
       keyframes: {
-        slideUp: {
-          '0%': { transform: 'translateY(10%)', opacity: .5 },
-          '100%': { transform: 'translateY(0%)', opacity: 1},
+        gradient: {
+          '0%': {
+            backgroundSize: '400% 400%',
+            backgroundPosition: '0% 50%'
+          },
+          '50%': {
+            backgroundSize: '400% 400%',
+            backgroundPosition: '100% 50%'
+          },
+          '100%': {
+            backgroundSize: '400% 400%',
+            backgroundPosition: '0% 50%'
+          },
         },
-        fade: {
-          '0%': { opacity: .4 },
-          '100%': { opacity: 1},
-        }
-      }
+      },      
     },
   },
 };

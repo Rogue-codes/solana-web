@@ -1,5 +1,6 @@
-import React from "react";
-import {BsArrowUpRight} from "react-icons/bs"
+import React, { useRef } from "react";
+import { BsArrowUpRight } from "react-icons/bs";
+import { motion } from "framer-motion";
 export default function Dig() {
   const arr = [
     {
@@ -35,30 +36,82 @@ export default function Dig() {
       desc: "A list of curated examples for a wide range of use cases implemented using on-chain programs.",
     },
   ];
+
+  const opacity = {
+    hide: {
+      opacity: 0,
+    },
+    show: {
+      opacity: 1,
+      transition: { delay: 2, duration: 2, type: "spring", stiffness: 120 },
+    },
+  };
+
+  const slideUp = {
+    hide: {
+      y:50,
+      opacity: 0,
+    },
+    show: {
+      y:0,
+      opacity: 1,
+      transition: { delay: 2, duration: 2, type: "spring", stiffness: 120 },
+    },
+  };
+  const scrollRef = useRef(null);
   return (
-    <div className="px-24  w-full mt-12">
-      <h2 className="text-[2.4rem] text-white leading-[42px]">Dig deeper.</h2>
-      <p className="text-[1.25rem] mt-2 text-[#C4C4C4] leading-[27px]">
+    <div className="px-8 lg:px-24  w-full mt-12">
+      <motion.h2
+        variants={opacity}
+        viewport={{ once: true }}
+        initial="hide"
+        whileInView="show"
+        ref={scrollRef}
+        className="text-[2.4rem] text-white leading-[42px]"
+      >
+        Dig deeper.
+      </motion.h2>
+      <motion.p
+        variants={opacity}
+        viewport={{ once: true }}
+        initial="hide"
+        whileInView="show"
+        ref={scrollRef}
+        className="text-[1.25rem] mt-2 text-[#C4C4C4] leading-[27px]"
+      >
         Learn from resources across the greater Solana ecosystem.
-      </p>
+      </motion.p>
 
       <div className="w-full mt-8 flex flex-wrap justify-start gap-5 items-center">
-        {
-          arr.map((item,index)=>(
-            <div key={index} className="w-[20rem] py-8 px-8 overflow-hidden bg-[#19161C] m-2 relative h-[17.6rem] rounded-xl">
-              <p className="text-[#9945FF] text-xs leading-5 uppercase">tool / library</p>
-              <h2 className="text-white mt-2 text-[1.2rem] leading-5">{item.text}</h2>
-              <p className="text-[1rem] mt-4 text-white leading-[26px]">{item.desc}</p>
-              <div className="flex justify-start gap-5 items-center mt-3 text-white">
-                <p>Learn more</p>
-                <BsArrowUpRight/>
-              </div>
-                {/* blur bg */}
-                {index===4 && <div className="w-[16rem] absolute bg-[#A962FF] blur-[40px]  -bottom-16 left-[10%] h-[3.6rem]"></div>}
+        {arr.map((item, index) => (
+          <motion.div
+          variants={slideUp}
+          viewport={{ once: true }}
+          initial="hide"
+          whileInView="show"
+          ref={scrollRef}
+            key={index}
+            className="w-full lg:w-[20rem] py-8 px-4 lg:px-8 overflow-hidden bg-[#19161C] m-2 relative h-[17.6rem] rounded-xl"
+          >
+            <p className="text-[#9945FF] text-xs leading-5 uppercase">
+              tool / library
+            </p>
+            <h2 className="text-white mt-2 text-[1.2rem] leading-5">
+              {item.text}
+            </h2>
+            <p className="text-[1rem] mt-4 text-white leading-[26px]">
+              {item.desc}
+            </p>
+            <div className="flex justify-start gap-5 items-center mt-3 text-white">
+              <p>Learn more</p>
+              <BsArrowUpRight />
             </div>
-          ))
-        }
-
+            {/* blur bg */}
+            {index === 4 && (
+              <div className="w-[16rem] absolute bg-[#A962FF] blur-[40px]  -bottom-16 left-[10%] h-[3.6rem]"></div>
+            )}
+          </motion.div>
+        ))}
       </div>
     </div>
   );

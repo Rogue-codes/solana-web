@@ -1,21 +1,78 @@
 /* eslint-disable react/no-unescaped-entities */
 import Image from "next/image";
-import React from "react";
+import React, { useRef } from "react";
 import { changelog } from "../../../public/assets";
+import { motion } from "framer-motion";
 
 export default function Source() {
+  const slideRight = {
+    hide: {
+      x: "-5%",
+      opacity: 0,
+    },
+    show: {
+      x: "0%",
+      opacity: 1,
+      transition: { delay: 1, duration: 2, type: "spring", stiffness: 120 },
+    },
+  };
+
+  const slideLeft = {
+    hide: {
+      x: 50,
+      opacity: 0,
+    },
+    show: {
+      x: 0,
+      opacity: 1,
+      transition: { delay: 1, duration: 2, type: "spring", stiffness: 120 },
+    },
+  };
+
+  const opacity = {
+    hide: {
+      opacity: 0,
+    },
+    show: {
+      opacity: 1,
+      transition: { delay: 2, duration: 2, type: "spring", stiffness: 120 },
+    },
+  };
+
+  const scrollRef = useRef(null);
   return (
     <div className="w-full py-12 mt-16 bg-gradient-to-b from-[#19161C] to-[#000]">
-      <div className="px-24 ">
-        <h2 className="text-[2.4rem] text-white leading-[42px]">
+      <div className="px-8 lg:px-24 ">
+        <motion.h2
+          variants={opacity}
+          viewport={{ once: true }}
+          initial="hide"
+          whileInView="show"
+          ref={scrollRef}
+          className="text-[2.4rem] text-white leading-[42px]"
+        >
           Go to the source.
-        </h2>
-        <p className="text-[1.25rem] mt-2 text-[#C4C4C4] leading-[27px]">
+        </motion.h2>
+        <motion.p
+          variants={opacity}
+          viewport={{ once: true }}
+          initial="hide"
+          whileInView="show"
+          ref={scrollRef}
+          className="text-[1.25rem] mt-2 text-[#C4C4C4] leading-[27px]"
+        >
           Read the documentation for Solana and popular tools.
-        </p>
+        </motion.p>
 
-        <div className="flex justify-between mt-12 items-center">
-          <div className="w-[47%]">
+        <div className="flex flex-wrap justify-between mt-12 items-center">
+          <motion.div
+            variants={slideRight}
+            viewport={{ once: true }}
+            initial="hide"
+            whileInView="show"
+            ref={scrollRef}
+            className="lg:w-[47%]"
+          >
             <div className="flex justify-between items-start">
               <p className="text-3xl text-white leading-[33px]">Solana Docs</p>
               <button className="w-[9.25rem] h-12 border rounded-3xl text-white text-sm leading-5 uppercase">
@@ -28,9 +85,16 @@ export default function Source() {
               Learn how Solana works and get a high-level understanding of
               Solana's architecture.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="w-[47%]">
+          <motion.div
+            variants={slideLeft}
+            viewport={{ once: true }}
+            initial="hide"
+            whileInView="show"
+            ref={scrollRef}
+            className="lg:w-[47%]"
+          >
             <div className="flex justify-between items-start">
               <p className="text-3xl text-white leading-[33px]">
                 Metaplex Docs
@@ -45,11 +109,18 @@ export default function Source() {
               Learn what you build with Metaplex, make the process of creating
               and launching NFTs easier.
             </p>
-          </div>
+          </motion.div>
         </div>
 
-        <div className="w-full flex justify-between items-start mt-28">
-          <div className="w-[32rem]">
+        <div className="w-full flex flex-wrap justify-between items-start mt-28">
+          <motion.div
+            variants={slideRight}
+            viewport={{ once: true }}
+            initial="hide"
+            whileInView="show"
+            ref={scrollRef}
+            className="lg:w-[32rem]"
+          >
             <h2 className="text-4xl leading-[42px] text-white">
               Solana Changelog
             </h2>
@@ -61,10 +132,17 @@ export default function Source() {
             <button className="w-[12.5rem] border h-6 rounded-3xl text-sm text-white uppercase mt-14">
               Latest episode
             </button>
-          </div>
-          <div className="w-[33rem] h-[20rem]">
+          </motion.div>
+          <motion.div
+            variants={slideLeft}
+            viewport={{ once: true }}
+            initial="hide"
+            whileInView="show"
+            ref={scrollRef}
+            className="lg:w-[33rem] mt-12 lg:mt-0 h-[20rem]"
+          >
             <Image src={changelog} alt="" />
-          </div>
+          </motion.div>
         </div>
       </div>
     </div>

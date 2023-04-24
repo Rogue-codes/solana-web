@@ -23,12 +23,12 @@ export default function Nav() {
         },
     ]
   return (
-    <div className='text-white justify-between items-center t40-container h-16 flex '>
+    <div className='text-white fixed px-5 lg:px-8 left-0 top-0 z-50 bg-black w-full justify-between items-center h-16 flex '>
         <div>
             <Image src={logo} alt=""/>
         </div>
 
-        <ul className='flex w-[50%] justify-around items-center'>
+        <ul className='hidden lg:flex w-[50%] justify-around items-center'>
             {
                 data.map((item,index)=>(
                     <li key={index} className='text-md'>

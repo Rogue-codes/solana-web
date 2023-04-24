@@ -1,8 +1,33 @@
 import Image from "next/image";
-import React from "react";
+import React, { useRef } from "react";
 import { bg } from "../../../public/assets";
-
+import { motion } from "framer-motion";
 export default function Adoption() {
+  const slideRight = {
+    hide: {
+      x: "-5%",
+      opacity: 0,
+    },
+    show: {
+      x: "0%",
+      opacity: 1,
+      transition: { delay: 1, duration: 2, type: "spring", stiffness: 120 },
+    },
+  };
+
+  const slideUp = {
+    hide: {
+      y: 50,
+      opacity: 0,
+    },
+    show: {
+      y: 0,
+      opacity: 1,
+      transition: { delay: 1, duration: 1, type: "spring", stiffness: 120 },
+    },
+  };
+
+  const scrollRef = useRef(null);
   const cards = [
     {
       name: "Fast",
@@ -30,24 +55,35 @@ export default function Adoption() {
     },
   ];
   return (
-    <div className="w-full relative flex justify-between items-start mt-32 py-4">
-      <div>
+    <div className="w-full relative flex flex-col lg:flex-row justify-between items-start px-2 lg:px-0 mt-32 py-4">
+      <motion.div
+        variants={slideRight}
+        viewport={{ once: true }}
+        initial="hide"
+        whileInView="show"
+        ref={scrollRef}
+      >
         <h2 className="text-4xl leading-[46px] text-white">
           Made for <br /> mass adoption
         </h2>
         <li className="list-disc text-[#1FCFF1]">
           <span className="text-[#C4C4C4] text-[1rem]">Live data</span>
         </li>
-      </div>
+      </motion.div>
 
       {/* cards */}
-      <div className="w-[70%] relative flex flex-wrap justify-between items-center">
+      <div className="w-full lg:w-[70%] relative flex flex-wrap justify-between items-center">
         {cards.map((card, index) => (
-          <div
+          <motion.div
+            variants={slideUp}
+            viewport={{ once: true }}
+            initial="hide"
+            whileInView="show"
+            ref={scrollRef}
             key={index}
-            className={`${index === 1 ? "-mt-32" : "mt-0"} ${
+            className={`${index === 1 ? "lg:-mt-32 mt-16" : "lg:mt-0 mt-16"} ${
               index === 3 ? "mb-24" : "mb-0"
-            } w-[21.25rem] h-[19.25rem] bg-[rgba(0,0,0,0.28)] backdrop-blur-sm rounded-3xl`}
+            } w-full border lg:w-[21.25rem] p-5 lg:p-2 bg-[rgba(0,0,0,0.28)] backdrop-blur-sm rounded-3xl`}
           >
             <div
               className={`${
@@ -75,12 +111,12 @@ export default function Adoption() {
             <p className="text-md leading-7 mt-3 text-[#C4C4C4]">
               {card.transaction}
             </p>
-          </div>
+          </motion.div>
         ))}
       </div>
 
       <div className="absolute left-0 top-0 w-full h-full -z-40">
-        <Image src={bg} alt=""/>
+        <Image src={bg} alt="" />
       </div>
     </div>
   );
